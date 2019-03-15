@@ -30,10 +30,27 @@ public class Main extends Application {
         add.setAccelerator(KeyCombination.keyCombination("Ctrl+N"));
         add.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent t) {
-                ProofPanel.getInstance().addSentence();
+                ProofPanel.addSentence();
             }
         });
-        menuEdit.getItems().addAll(add);
+
+        MenuItem addSub = new MenuItem("Add SubProof");
+        addSub.setAccelerator(KeyCombination.keyCombination("Ctrl+K"));
+        addSub.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent t) {
+                ProofPanel.addSubProof();
+            }
+        });
+
+        MenuItem endSub = new MenuItem("End SubProof");
+        endSub.setAccelerator(KeyCombination.keyCombination("Ctrl+E"));
+        endSub.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent t) {
+                ProofPanel.endSubProof();
+            }
+        });
+
+        menuEdit.getItems().addAll(add,addSub,endSub);
 
 
         ((VBox) mainScene.getRoot()).getChildren().addAll(menuBar);

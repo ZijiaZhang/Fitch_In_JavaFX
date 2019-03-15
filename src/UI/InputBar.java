@@ -7,6 +7,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,6 +18,7 @@ public class InputBar {
     private TextField text;
     private CheckBox checkBox;
     private ComboBox comboBox;
+    private Region region;
 
     public InputBar(){
         try {
@@ -26,6 +28,7 @@ public class InputBar {
             InputBarController inputBarController = fxmlLoader.getController();
             text = inputBarController.getTextfield();
             checkBox = inputBarController.getCheckBox();
+            region = inputBarController.getRegion();
             inputBarController.setInputBar(this);
 
         }catch (IOException e){
@@ -50,5 +53,13 @@ public class InputBar {
 
     public void defoucus(){
         checkBox.setSelected(false);
+    }
+
+    public Region getRegion() {
+        return region;
+    }
+
+    public TextField getText() {
+        return text;
     }
 }

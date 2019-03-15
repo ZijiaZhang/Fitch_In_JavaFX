@@ -15,8 +15,11 @@ public class Sentence implements DisplaySentences {
         this.parent = parent;
     }
 
-    public List<Node> render(){
+    public List<Node> render(int layer){
         List<Node> r = new ArrayList<>();
+        sentence.getRegion().setPrefSize(layer*50,10);
+        sentence.getRegion().setMinSize(layer*50,10);
+        sentence.getText().setText(String.valueOf(layer));
         r.add(sentence.getTarget());
         return r;
     }
@@ -26,7 +29,7 @@ public class Sentence implements DisplaySentences {
     }
 
     @Override
-    public DisplaySentences searchForSentence(String str) {
+    public Sentence searchForSentence(String str) {
         if(this.sentence.getSentence().equals(str))
             return this;
         else
@@ -34,7 +37,7 @@ public class Sentence implements DisplaySentences {
     }
 
     @Override
-    public DisplaySentences searchForInputBar(InputBar inputBar) {
+    public Sentence searchForInputBar(InputBar inputBar) {
         if(this.sentence==inputBar)
             return this;
         else
@@ -45,7 +48,6 @@ public class Sentence implements DisplaySentences {
         return parent;
     }
 
-    @Override
     public void focus() {
         sentence.focus();
     }

@@ -8,15 +8,15 @@ import javafx.scene.layout.VBox;
 public class ProofPanel extends VBox {
 
     private static ProofPanel proofPanel;
-    private SentenceCollection sentenceCollection = new SentenceCollection(null,null);
-    private DisplaySentences currentFocus;
+    private static SentenceCollection sentenceCollection = new SentenceCollection(null,null);
+    private static Sentence currentFocus;
 
     public ProofPanel(){
         Sentence s = sentenceCollection.addSentence();
         currentFocus = s;
         renderSentences();
         //.addSentence();
-        currentFocus.focus();
+        //currentFocus.focus();
 
     }
 
@@ -29,26 +29,48 @@ public class ProofPanel extends VBox {
         currentFocus.receiveInput(s);
     }
 
-    public void addSentence(){
+    public static void addSentence(){
         Sentence s = currentFocus.getParent().addSentence();
-        renderSentences();
-        currentFocus = s;
+        proofPanel.renderSentences();
+        //currentFocus = s;
+        proofPanel.changeFocus(s);
     }
 
     private void renderSentences(){
         clear();
-        this.getChildren().addAll(sentenceCollection.render());
+        this.getChildren().addAll(sentenceCollection.render(-1));
     }
 
     private void clear(){
         this.getChildren().removeAll(this.getChildren());
     }
 
-    public void ChangeFocus(InputBar inputBar){
+    public void changeFocus(InputBar inputBar){
         if(currentFocus!=null)
         currentFocus.defocus();
         currentFocus = sentenceCollection.searchForInputBar(inputBar);
         if(currentFocus!=null)
         currentFocus.focus();
+    }
+
+    public void changeFocus(Sentence sentence){
+        if(currentFocus!=null)
+            currentFocus.defocus();
+        currentFocus = sentence;
+        if(currentFocus!=null)
+            currentFocus.focus();
+    }
+
+    public static void addSubProof(){
+        SentenceCollection s = currentFocus.getParent().addSubProof();
+        Sentence c = s.addSentence();
+        proofPanel.renderSentences();
+        proofPanel.changeFocus(c);
+    }
+
+    public static void endSubProof(){
+        Sentence s = currentFocus.getParent().getParent().addSentence();
+        proofPanel.renderSentences();
+        proofPanel.changeFocus(s);
     }
 }

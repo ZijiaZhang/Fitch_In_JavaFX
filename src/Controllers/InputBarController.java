@@ -34,7 +34,7 @@ public class InputBarController {
 
     @FXML
     private void FocusOnText(){
-        ProofPanel.getInstance().ChangeFocus(inputBar);
+        ProofPanel.getInstance().changeFocus(inputBar);
     }
 
     public Region getRegion() {
