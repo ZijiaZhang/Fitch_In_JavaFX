@@ -8,13 +8,13 @@ import javafx.scene.layout.GridPane;
 import java.io.File;
 import java.io.IOException;
 
-public class InputPannel extends GridPane {
+public class InputPanel extends GridPane {
     private final String[] inputs = {"∧", "∨", "¬", "→", "↔", "⊥", "a", "b", "c", "d"
             , "e", "f", "∀", "∃", "=", "≠", "(", ")", "x", "y", "z", "u", "v", "w"};
     private final double SIZE_X = 300;
     private final double SIZE_Y = 200;
 
-    public InputPannel() throws IOException {
+    public InputPanel() throws IOException {
         super();
         for(int i =0; i<inputs.length;i++){
             final String FXML = "resources/Button.fxml";

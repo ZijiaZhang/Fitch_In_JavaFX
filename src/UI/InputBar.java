@@ -25,6 +25,8 @@ public class InputBar {
             target = fxmlLoader.load();
             InputBarController inputBarController = fxmlLoader.getController();
             text = inputBarController.getTextfield();
+            checkBox = inputBarController.getCheckBox();
+            inputBarController.setInputBar(this);
 
         }catch (IOException e){
 
@@ -37,5 +39,16 @@ public class InputBar {
 
     public HBox getTarget() {
         return target;
+    }
+
+    public String getSentence(){return text.getText();}
+
+    public void focus(){
+        checkBox.setSelected(true);
+        text.requestFocus();
+    }
+
+    public void defoucus(){
+        checkBox.setSelected(false);
     }
 }

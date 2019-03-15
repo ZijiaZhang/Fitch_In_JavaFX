@@ -1,13 +1,15 @@
 package sample;
 
-import UI.InputPannel;
-import UI.ProofPannel;
+import UI.InputPanel;
+import UI.ProofPanel;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -19,13 +21,32 @@ public class Main extends Application {
         VBox root = new VBox();
         Scene mainScene = new Scene(root,600,1000);
 
-        root.getChildren().add(new InputPannel());
-        root.getChildren().add(ProofPannel.getInstance());
+
+        MenuBar menuBar = new MenuBar();
+        Menu menuFile = new Menu("File");
+        Menu menuEdit = new Menu("Edit");
+
+        MenuItem add = new MenuItem("Add Sentence");
+        add.setAccelerator(KeyCombination.keyCombination("Ctrl+N"));
+        add.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent t) {
+                ProofPanel.getInstance().addSentence();
+            }
+        });
+        menuEdit.getItems().addAll(add);
+
+
+        ((VBox) mainScene.getRoot()).getChildren().addAll(menuBar);
+        menuBar.getMenus().addAll(menuFile, menuEdit);
+
+        root.getChildren().add(new InputPanel());
+        root.getChildren().add(ProofPanel.getInstance());
 
 
         primaryStage.setTitle("Hello World");
         primaryStage.setScene(mainScene);
         primaryStage.show();
+
     }
 
     @Override

@@ -6,22 +6,11 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 
-<HBox
-        maxHeight="-Infinity"
-        maxWidth="-Infinity"
-        minHeight="-Infinity"
-        minWidth="-Infinity"
-        prefHeight="25.0"
-        xmlns="http://javafx.com/javafx/8.0.172-ea"
-        xmlns:fx="http://javafx.com/fxml/1"
-        fx:controller="Controllers.InputBarController"
->
+<HBox fx:id="Hbox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.InputBarController">
    <children>
-      <Region prefHeight="50.0" prefWidth="0.0" />
-      <CheckBox mnemonicParsing="false" />
-      <TextField
-              fx:id = "textfield"
-              minWidth="200.0" />
-      <ComboBox prefWidth="150.0" />
+      <Region fx:id="region" prefHeight="50.0" prefWidth="0.0" />
+      <CheckBox fx:id="checkBox" mnemonicParsing="false" onMouseClicked="#FocusOnText" />
+      <TextField fx:id="textfield" minWidth="200.0" onMouseClicked="#FocusOnText" />
+      <ComboBox fx:id="comboBox" prefWidth="150.0" />
    </children>
 </HBox>

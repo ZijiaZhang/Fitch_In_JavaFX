@@ -1,6 +1,6 @@
 package Controllers;
 
-import UI.ProofPannel;
+import UI.ProofPanel;
 import javafx.fxml.FXML;
 
 public class InputButtonController {
@@ -9,7 +9,7 @@ public class InputButtonController {
     @FXML
     private void ButtonPressed(){
         System.out.println("buttonPressed" + name);
-        ProofPannel.getInstance().receiveInput(name);
+        ProofPanel.getInstance().receiveInput(name);
     }
 
     public void setName(String name) {
