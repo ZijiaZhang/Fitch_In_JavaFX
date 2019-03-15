@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+
+<HBox
+        maxHeight="-Infinity"
+        maxWidth="-Infinity"
+        minHeight="-Infinity"
+        minWidth="-Infinity"
+        prefHeight="25.0"
+        xmlns="http://javafx.com/javafx/8.0.172-ea"
+        xmlns:fx="http://javafx.com/fxml/1"
+        fx:controller="Controllers.InputBarController"
+>
+   <children>
+      <Region prefHeight="50.0" prefWidth="0.0" />
+      <CheckBox mnemonicParsing="false" />
+      <TextField
+              fx:id = "textfield"
+              minWidth="200.0" />
+      <ComboBox prefWidth="150.0" />
+   </children>
+</HBox>
