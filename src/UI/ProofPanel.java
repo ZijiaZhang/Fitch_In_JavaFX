@@ -7,9 +7,12 @@ import javafx.scene.layout.VBox;
 
 public class ProofPanel extends VBox {
 
+    public static final int INPUT = 0;
+    public static final int RULE = 1;
     private static ProofPanel proofPanel;
     private static SentenceCollection sentenceCollection = new SentenceCollection(null,null);
     private static Sentence currentFocus;
+    private static int mode = 0;
 
     public ProofPanel(){
         Sentence s = sentenceCollection.addSentence();
@@ -53,6 +56,14 @@ public class ProofPanel extends VBox {
         currentFocus.focus();
     }
 
+    public void selectText(InputBar inputBar){
+        if(mode == INPUT)
+            changeFocus(inputBar);
+        else if(mode == RULE)
+            currentFocus.addRuleLink(sentenceCollection.searchForInputBar(inputBar));
+
+    }
+
     public void changeFocus(Sentence sentence){
         if(currentFocus!=null)
             currentFocus.defocus();
@@ -72,5 +83,9 @@ public class ProofPanel extends VBox {
         Sentence s = currentFocus.getParent().getParent().addSentence();
         proofPanel.renderSentences();
         proofPanel.changeFocus(s);
+    }
+
+    public void setMode(int m){
+        mode = m;
     }
 }

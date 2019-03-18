@@ -17,9 +17,13 @@ public class Sentence implements DisplaySentences {
 
     public List<Node> render(int layer){
         List<Node> r = new ArrayList<>();
-        sentence.getRegion().setPrefSize(layer*50,10);
-        sentence.getRegion().setMinSize(layer*50,10);
-        sentence.getText().setText(String.valueOf(layer));
+        int width = layer*50;
+        int MinWidth = 400;
+        sentence.getRegion().setPrefSize(width,10);
+        sentence.getRegion().setMinSize(width,10);
+        //sentence.getTextfield().setPrefSize(sentence.getTextfield().getWidth()-width,sentence.getTextfield().getHeight());
+        sentence.getTextfield().setMinSize(MinWidth-width,sentence.getTextfield().getHeight());
+        sentence.getTextfield().setText(String.valueOf(layer));
         r.add(sentence.getTarget());
         return r;
     }
@@ -54,5 +58,31 @@ public class Sentence implements DisplaySentences {
 
     public void defocus(){
         sentence.defoucus();
+    }
+
+    public void addRuleLink(DisplaySentences sentences){
+            if(isPrev(sentences))
+                sentence.addRuleLink(sentences);
+            else{
+                //TODO: SELECT SUBPROOF
+            }
+
+
+    }
+
+    //Return true if s is a valid premise for current sentence;
+    boolean isPrev(DisplaySentences s){
+        ArrayList<DisplaySentences> premises = getPremises();
+        return premises.contains(s);
+    }
+
+    @Override
+    public ArrayList<DisplaySentences> getPremises() {
+        return parent.findpremises(this);
+    }
+
+    @Override
+    public void setSelected() {
+        sentence.setSelected();
     }
 }

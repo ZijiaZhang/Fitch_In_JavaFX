@@ -33,7 +33,7 @@ public class SentenceCollection implements DisplaySentences {
 //        if(sentence!=null) {
 //            sentence.getRegion().setPrefSize(layer*50,10);
 //            sentence.getRegion().setMinSize(layer*50,10);
-//            sentence.getText().setText(String.valueOf(layer));
+//            sentence.getTextfield().setText(String.valueOf(layer));
 //            r.add(sentence.getTarget());
 //        }
         for(DisplaySentences s: Sentences){
@@ -92,4 +92,29 @@ public class SentenceCollection implements DisplaySentences {
 //    public InputBar getSentence() {
 //        return sentence;
 //    }
+
+
+    @Override
+    public ArrayList<DisplaySentences> getPremises() {
+        return null;
+    }
+
+    //Return All premises before s
+    public ArrayList<DisplaySentences> findpremises(DisplaySentences s){
+        if(Sentences==null)
+            return new ArrayList<>();
+        ArrayList<DisplaySentences> result = new ArrayList<>();
+        int index = Sentences.indexOf(s);
+        for(int i =0;i<index;i++)
+            result.add(Sentences.get(i));
+        if(parent!=null)
+            result.addAll(getParent().findpremises(this));
+        return result;
+    }
+
+    @Override
+    public void setSelected() {
+        for(DisplaySentences displaySentences: Sentences)
+            displaySentences.setSelected();
+    }
 }
