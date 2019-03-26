@@ -50,7 +50,15 @@ public class Main extends Application {
             }
         });
 
-        menuEdit.getItems().addAll(add,addSub,endSub);
+        MenuItem addPrim = new MenuItem("Add Premise");
+        addPrim.setAccelerator(KeyCombination.keyCombination("Ctrl+P"));
+        addPrim.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent t) {
+                ProofPanel.addPremise();
+            }
+        });
+
+        menuEdit.getItems().addAll(add,addSub,endSub,addPrim);
 
 
         ((VBox) mainScene.getRoot()).getChildren().addAll(menuBar);

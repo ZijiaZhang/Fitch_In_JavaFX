@@ -74,7 +74,14 @@ public class InputBarController {
         ruleSelection.setText(s);
     }
 
-    public void selectText() {
-        ProofPanel.getInstance().selectText(inputBar);
+    public Label getRuleSelection() {
+        return ruleSelection;
     }
+
+    public void selectText() {
+        ProofPanel.getInstance().setMode(ProofPanel.RULE);
+        ProofPanel.getInstance().selectText(inputBar, checkBox.isSelected());
+    }
+
+
 }

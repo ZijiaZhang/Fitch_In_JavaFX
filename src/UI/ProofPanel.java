@@ -5,6 +5,8 @@ import DataStructures.Proof.Sentence;
 import DataStructures.Proof.SentenceCollection;
 import javafx.scene.layout.VBox;
 
+import java.util.ArrayList;
+
 public class ProofPanel extends VBox {
 
     public static final int INPUT = 0;
@@ -16,6 +18,7 @@ public class ProofPanel extends VBox {
 
     public ProofPanel(){
         Sentence s = sentenceCollection.addSentence();
+        //currentFocus = s.getFirstSentence();
         currentFocus = s;
         renderSentences();
         //.addSentence();
@@ -33,15 +36,21 @@ public class ProofPanel extends VBox {
     }
 
     public static void addSentence(){
-        Sentence s = currentFocus.getParent().addSentence();
-        proofPanel.renderSentences();
+        Sentence s;
+        if(!currentFocus.isFirstSentenceOfCollection())
+            s = currentFocus.getParent().addSentence();
+        else
+            s = currentFocus.getLeadingCollection().addSentence();
+
         //currentFocus = s;
         proofPanel.changeFocus(s);
+        proofPanel.renderSentences();
     }
 
     private void renderSentences(){
         clear();
-        this.getChildren().addAll(sentenceCollection.render(-1));
+        this.getChildren().addAll(sentenceCollection.render(-1,false));
+        currentFocus.focus();
     }
 
     private void clear(){
@@ -51,16 +60,20 @@ public class ProofPanel extends VBox {
     public void changeFocus(InputBar inputBar){
         if(currentFocus!=null)
         currentFocus.defocus();
-        currentFocus = sentenceCollection.searchForInputBar(inputBar);
+        currentFocus = inputBar.getSentence();
         if(currentFocus!=null)
         currentFocus.focus();
+        this.renderSentences();
     }
 
-    public void selectText(InputBar inputBar){
+    public void selectText(InputBar inputBar, boolean selected){
         if(mode == INPUT)
             changeFocus(inputBar);
         else if(mode == RULE)
-            currentFocus.addRuleLink(sentenceCollection.searchForInputBar(inputBar));
+            if(selected)
+                currentFocus.addRuleLink(inputBar.getSentence());
+            else
+                currentFocus.removeRuleLink(inputBar.getSentence());
 
     }
 
@@ -73,19 +86,44 @@ public class ProofPanel extends VBox {
     }
 
     public static void addSubProof(){
-        SentenceCollection s = currentFocus.getParent().addSubProof();
-        Sentence c = s.addSentence();
+        SentenceCollection s;
+        if(!currentFocus.isFirstSentenceOfCollection()) {
+             s = currentFocus.getParent().addSubProof();
+        }else{
+            s = currentFocus.getLeadingCollection().addSubProof();
+        }
+        //Sentence c = s.addSentence();
+
+        proofPanel.changeFocus(s.getFirstSentence());
         proofPanel.renderSentences();
-        proofPanel.changeFocus(c);
     }
 
     public static void endSubProof(){
-        Sentence s = currentFocus.getParent().getParent().addSentence();
-        proofPanel.renderSentences();
-        proofPanel.changeFocus(s);
+        Sentence s;
+        try {
+            if (!currentFocus.isFirstSentenceOfCollection())
+                s = currentFocus.getParent().getParent().addSentence();
+            else
+                s = currentFocus.getParent().addSentence();
+
+            proofPanel.changeFocus(s);
+            proofPanel.renderSentences();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public void setMode(int m){
         mode = m;
+    }
+
+    public static Sentence getCurrentFocus() {
+        return currentFocus;
+    }
+
+    public static void addPremise(){
+        Sentence s = sentenceCollection.addPremise();
+        proofPanel.changeFocus(s);
+        proofPanel.renderSentences();
     }
 }

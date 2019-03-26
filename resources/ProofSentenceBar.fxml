@@ -12,7 +12,7 @@
 <HBox fx:id="Hbox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.InputBarController">
    <children>
       <Region fx:id="region" prefHeight="50.0" prefWidth="0.0" />
-      <CheckBox fx:id="checkBox" mnemonicParsing="false" onMouseClicked="#selectText" />
+      <CheckBox fx:id="checkBox" mnemonicParsing="false" onMouseClicked="#selectText"/>
       <TextField fx:id="textfield" minWidth="400.0" onMouseClicked="#FocusOnText" />
       <Label
               fx:id = "ruleSelection"
