@@ -2,16 +2,19 @@ package Controllers;
 
 import UI.InputBar;
 import UI.ProofPanel;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 
 
 public class InputBarController {
 
+    private String rule = "none";
+    public Label ruleSelection;
+    public ContextMenu ruleMenu;
     @FXML
     private Region region;
     @FXML
@@ -34,6 +37,7 @@ public class InputBarController {
 
     @FXML
     private void FocusOnText(){
+        ProofPanel.getInstance().setMode(ProofPanel.INPUT);
         ProofPanel.getInstance().changeFocus(inputBar);
     }
 
@@ -52,4 +56,32 @@ public class InputBarController {
     public void setInputBar(InputBar inputBar){
         this.inputBar = inputBar;
     }
+
+    public void ShowRuleSelection(MouseEvent mouseEvent) {
+        ruleMenu.show(ruleSelection,mouseEvent.getScreenX(),mouseEvent.getScreenY());
+        selectText();
+    }
+
+    public void ruleCheck(ActionEvent actionEvent) {
+        String name = ((MenuItem)actionEvent.getSource()).getText();
+        setRule(name);
+        ProofPanel.getInstance().setMode(ProofPanel.RULE);
+        selectText();
+    }
+
+    private void setRule(String s){
+        rule = s;
+        ruleSelection.setText(s);
+    }
+
+    public Label getRuleSelection() {
+        return ruleSelection;
+    }
+
+    public void selectText() {
+        ProofPanel.getInstance().setMode(ProofPanel.RULE);
+        ProofPanel.getInstance().selectText(inputBar, checkBox.isSelected());
+    }
+
+
 }
